@@ -1,80 +1,53 @@
 from django.shortcuts import render
-from django.http import JsonResponse
 
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import viewsets
 from rest_framework import status
-from rest_framework.parsers import JSONParser
-
-from .models import CropLossComm
+from .models import CropLossComm, Event, Cultivation
 from .serializers import CropLossCommSerializer
+
 from . import utils
-from datetime import datetime
 
 
-@api_view(['GET'])
-def apiOverview(request):
-    api_urls = {
-        'List': '/communication-list/',
-        'Detail': '/communication-detail/<str:pk>/',
-        'Create': '/communication-create/',
-        'Update': '/communication-update/<str:pk>',
-        'Delete': '/communication-delete/<str:pk>',
-    }
-    return Response(api_urls)
+class CommViewSet(viewsets.ModelViewSet):
+    queryset = CropLossComm.objects.all()
+    serializer_class = CropLossCommSerializer
 
-@api_view(['GET'])
-def communicationList(request):
-    comms = CropLossComm.objects.all()
-    serializer = CropLossCommSerializer(comms, many=True)
-    print(serializer)
-    return Response(serializer.data)
+    '''def list(self, request, *args, **kwargs):
+        queryset = CropLossComm.objects.all()
+        serializer = CommSimpleSerializer(queryset, many=True)
+        return Response(serializer.data)'''
 
-@api_view(['GET'])
-def communicationDetail(request, pk):
-    comms = CropLossComm.objects.get(id=pk)    
-    serializer = CropLossCommSerializer(comms, many=False)
-    return Response(serializer.data)
+    def create(self, request, *args, **kwargs):
+        comm_data = request.data
+        requestLat = comm_data["latitude"]
+        requestLon = comm_data["longitude"]
+        requestHarvestDate = comm_data["harvestDate"]
+        latitudeList, longitudeList, validPositionList = [], [], []
 
-@api_view(['POST'])
-def communicationCreate(request):
-    comms = list(CropLossComm.objects.all())
-    serializer = CropLossCommSerializer(data=request.data)
+        if CropLossComm.objects.filter(harvestDate=requestHarvestDate).exists():
+            validDate = True
+        else:
+            validDate = False
 
-    if serializer.is_valid():
-
-        requestLat = request.data["latitude"]
-        requestLon = request.data["longitude"]
-        requestHarvestDate = datetime.fromisoformat(request.data["harvestDate"]).date()
-
-        latitudeList, longitudeList, validPositionList, harvestDateList = [], [], [], []
-
-        for i in range(len(comms)):
-            latitudeList.append(comms[i].latitude)            
-            longitudeList.append(comms[i].longitude)
+        for i in range(len(self.queryset)):
+            latitudeList.append(self.queryset[i].latitude)            
+            longitudeList.append(self.queryset[i].longitude)
             validPositionList.append(utils.haversine(longitudeList[i], latitudeList[i], requestLon, requestLat))
 
-            harvestDateList.append(comms[i].harvestDate.date())
+        if any(x == True for x in validPositionList) and validDate:
+            return Response({"error": "There is another occurrence recorded nearby in the same period."})
 
-        if any(x == True for x in validPositionList) and any(x == requestHarvestDate for x in harvestDateList):
-            return Response("There is another occurrence recorded nearby in the same period.")
-        else:
-            serializer.save()
-        
-    return Response(serializer.data)
-
-@api_view(['PUT'])
-def communicationUpdate(request, pk):
-    comms = CropLossComm.objects.get(id=pk)
-    serializer = CropLossCommSerializer(instance=comms, data=request.data)
-
-    if serializer.is_valid():
-        serializer.save()
-
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
-def communicationDelete(request, pk):
-    comms = CropLossComm.objects.get(id=pk)
-    comms.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+        new_cultivation = Cultivation.objects.create(name=comm_data["cultivation"])
+        new_event = Event.objects.create(name=comm_data["event"])
+        new_comm = CropLossComm.objects.create(name=comm_data["name"],
+                                               email=comm_data["email"],
+                                               cpf=comm_data["cpf"],
+                                               latitude=comm_data["latitude"],
+                                               longitude=comm_data["longitude"],
+                                               cultivation=new_cultivation,
+                                               event=new_event,
+                                               harvestDate=comm_data["harvestDate"])
+        new_comm.save()
+        serializer = CropLossCommSerializer(new_comm)
+        return Response(serializer.data)
