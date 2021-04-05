@@ -38,8 +38,8 @@ class CommViewSet(viewsets.ModelViewSet):
         if any(x == True for x in validPositionList) and validDate:
             return Response({"error": "There is another occurrence recorded nearby in the same period."})
 
-        new_cultivation = Cultivation.objects.create(name=comm_data["cultivation"])
-        new_event = Event.objects.create(name=comm_data["event"])
+        new_cultivation = Cultivation.objects.get(id=comm_data["cultivation"])
+        new_event = Event.objects.get(id=comm_data["event"])
         new_comm = CropLossComm.objects.create(name=comm_data["name"],
                                                email=comm_data["email"],
                                                cpf=comm_data["cpf"],
