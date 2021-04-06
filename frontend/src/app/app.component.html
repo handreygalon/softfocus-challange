@@ -1,0 +1,14 @@
+<h1>Communications</h1>
+
+<ul>
+  <li *ngFor="let comm of comms" (click)="commClicked(comm)">
+    {{ comm.name }} - {{ comm.harvestDate }}
+  </li>
+</ul>
+
+<!-- <p>{{ selected_comm.id }}</p>
+<p>{{ selected_comm.harvestDate }}</p>
+<p>{{ selected_comm.cultivation }}</p>
+<p>{{ selected_comm.event }}</p> -->
+
+<router-outlet></router-outlet>

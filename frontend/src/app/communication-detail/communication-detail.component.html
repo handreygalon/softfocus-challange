@@ -1,0 +1,20 @@
+<h1>Crop Loss Communication Detail Component</h1>
+Communication info: {{ selected_comm.name }} - {{ selected_comm.harvestDate }}
+
+<p>Selected ID: {{ selected_id }}</p>
+
+<input type="text" [(ngModel)]="selected_comm.id">
+<input type="text" [(ngModel)]="selected_comm.name">
+<input type="text" [(ngModel)]="selected_comm.email">
+<input type="text" [(ngModel)]="selected_comm.cpf">
+<input type="text" [(ngModel)]="selected_comm.latitude">
+<input type="text" [(ngModel)]="selected_comm.longitude">
+<input type="text" [(ngModel)]="selected_comm.cultivation">
+<input type="text" [(ngModel)]="selected_comm.event">
+<input type="text" [(ngModel)]="selected_comm.harvestDate">
+
+<button (click)="updateCropLossCommunication()">Update Crop Loss Communication</button>
+
+<button (click)="deleteCropLossCommunication()">Delete Crop Loss Communication</button>
+
+<button (click)="newCropLossCommunication()">New Crop Loss Communication</button>
