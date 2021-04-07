@@ -46,7 +46,9 @@ export class AppComponent {
     }
   ];*/
 
-  constructor(private api:ApiService, private router: Router) {
+  constructor(
+    private api:ApiService,
+    private router: Router) {
     this.getCropLossCommunications();
   }
 
@@ -64,5 +66,9 @@ export class AppComponent {
 
   commClicked = (cropLossCommunication) => {
     this.router.navigate(['communication-detail', cropLossCommunication.id])
+  }
+
+  newCropLossCommunication() {
+    this.router.navigate(['new-communication'])
   }
 }

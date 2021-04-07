@@ -11,6 +11,10 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  getAllCultivations() : Observable<any> {
+    return this.http.get(this.baseUrl + 'cultivation/', {headers: this.httpHeaders});
+  };
+
   getAllCropLossCommunications() : Observable<any> {
     return this.http.get(this.baseUrl + 'communication/', {headers: this.httpHeaders});
   };

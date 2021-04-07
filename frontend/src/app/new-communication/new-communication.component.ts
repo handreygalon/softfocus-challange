@@ -8,6 +8,11 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./new-communication.component.css']
 })
 export class NewCommunicationComponent implements OnInit {
+  cultivations = [
+    { name: "MILHO" },
+    { name: "SOJA" }
+  ];
+
   comm = {
     id: 0,
     name: "",
@@ -22,10 +27,24 @@ export class NewCommunicationComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private appComponent: AppComponent) { }
+    private appComponent: AppComponent) {
+      //this.getCultivations()
+  }
 
   ngOnInit(): void {
   }
+
+  /*getCultivations() {
+    this.api.getAllCultivations().subscribe(
+      data => {
+        //console.log(data);
+        this.cultivations = data;
+      },
+      error => {
+        console.log("Error", error.message);
+      }
+    );
+  }*/
 
   save() {
     this.api.saveNewCropLossCommunication(this.comm).subscribe(

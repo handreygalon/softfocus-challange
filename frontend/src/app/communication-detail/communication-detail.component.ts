@@ -79,7 +79,7 @@ export class CommunicationDetailComponent implements OnInit {
     );
   }
 
-  newCropLossCommunication() {
+  /*newCropLossCommunication() {
     this.router.navigate(['new-communication'])
-  }
+  }*/
 }
