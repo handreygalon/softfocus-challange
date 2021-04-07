@@ -1,14 +1,20 @@
-<h1>Communications</h1>
+<h3>Comunicações</h3>
 
-<ul>
-  <li *ngFor="let comm of comms" (click)="commClicked(comm)">
-    {{ comm.name }} - {{ comm.harvestDate }}
-  </li>
-</ul>
-
-<!-- <p>{{ selected_comm.id }}</p>
-<p>{{ selected_comm.harvestDate }}</p>
-<p>{{ selected_comm.cultivation }}</p>
-<p>{{ selected_comm.event }}</p> -->
+<table class="alt">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>CPF</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let comm of comms" (click)="commClicked(comm)">
+      <td>{{ comm.id }}</td>
+      <td>{{ comm.name }}</td>
+      <td>{{ comm.cpf }}</td>
+    </tr>
+  </tbody>
+</table>
 
 <router-outlet></router-outlet>

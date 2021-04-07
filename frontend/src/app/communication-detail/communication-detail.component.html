@@ -1,20 +1,27 @@
-<h1>Crop Loss Communication Detail Component</h1>
-Communication info: {{ selected_comm.name }} - {{ selected_comm.harvestDate }}
+<h2>Detalhes da comunicação de perda:</h2>
+<!--Comunicação selecionada: {{ selected_comm.name }} - {{ selected_comm.cpf }}
+<p>Selected ID: {{ selected_id }}</p>-->
 
-<p>Selected ID: {{ selected_id }}</p>
-
-<input type="text" [(ngModel)]="selected_comm.id">
-<input type="text" [(ngModel)]="selected_comm.name">
-<input type="text" [(ngModel)]="selected_comm.email">
-<input type="text" [(ngModel)]="selected_comm.cpf">
-<input type="text" [(ngModel)]="selected_comm.latitude">
-<input type="text" [(ngModel)]="selected_comm.longitude">
-<input type="text" [(ngModel)]="selected_comm.cultivation">
-<input type="text" [(ngModel)]="selected_comm.event">
-<input type="text" [(ngModel)]="selected_comm.harvestDate">
+<!--<input type="text" [(ngModel)]="selected_comm.id"> <br>-->
+<label>Nome:</label>
+<input type="text" [(ngModel)]="selected_comm.name"> <br>
+<label>E-mail:</label>
+<input type="text" [(ngModel)]="selected_comm.email"> <br>
+<label>CPF:</label>
+<input type="text" [(ngModel)]="selected_comm.cpf"> <br>
+<label>Latitude:</label>
+<input type="text" [(ngModel)]="selected_comm.latitude"> <br>
+<label>Longitude:</label>
+<input type="text" [(ngModel)]="selected_comm.longitude"> <br>
+<label>Cultivo:</label>
+<input type="text" [(ngModel)]="selected_comm.cultivation"> <br>
+<label>Evento ocorrido:</label>
+<input type="text" [(ngModel)]="selected_comm.event"> <br>
+<label>Data da colheita:</label>
+<input type="text" [(ngModel)]="selected_comm.harvestDate"> <br>
 
 <button (click)="updateCropLossCommunication()">Update Crop Loss Communication</button>
 
 <button (click)="deleteCropLossCommunication()">Delete Crop Loss Communication</button>
 
-<button (click)="newCropLossCommunication()">New Crop Loss Communication</button>
+<button (click)="newCropLossCommunication()" class="button primary">New Crop Loss Communication</button>
