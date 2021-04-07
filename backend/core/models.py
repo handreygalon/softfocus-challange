@@ -24,8 +24,6 @@ class CropLossComm(models.Model):
     cultivation = models.ForeignKey(Cultivation, on_delete=models.SET('DELETED'))
     event = models.ForeignKey(Event, on_delete=models.SET('DELETED'))
     harvestDate = models.DateField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
 
     '''def __str__(self):
         return self.name + " - " + str(self.harvestDate)'''

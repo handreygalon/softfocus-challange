@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework import status
 from .models import CropLossComm, Event, Cultivation
-from .serializers import CropLossCommSerializer
+from .serializers import CropLossCommSerializer, CultivationSerializer, EventSerializer
 
 from . import utils
 
@@ -38,16 +38,26 @@ class CommViewSet(viewsets.ModelViewSet):
         if any(x == True for x in validPositionList) and validDate:
             return Response({"error": "There is another occurrence recorded nearby in the same period."})
 
-        new_cultivation = Cultivation.objects.get(id=comm_data["cultivation"])
-        new_event = Event.objects.get(id=comm_data["event"])
+        cultivation = Cultivation.objects.get(id=comm_data["cultivation"])
+        event = Event.objects.get(id=comm_data["event"])
         new_comm = CropLossComm.objects.create(name=comm_data["name"],
                                                email=comm_data["email"],
                                                cpf=comm_data["cpf"],
                                                latitude=comm_data["latitude"],
                                                longitude=comm_data["longitude"],
-                                               cultivation=new_cultivation,
-                                               event=new_event,
+                                               cultivation=cultivation,
+                                               event=event,
                                                harvestDate=comm_data["harvestDate"])
         new_comm.save()
         serializer = CropLossCommSerializer(new_comm)
         return Response(serializer.data)
+
+
+class CultivationViewSet(viewsets.ModelViewSet):
+    queryset = Cultivation.objects.all()
+    serializer_class = CultivationSerializer
+
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer

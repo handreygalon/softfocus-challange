@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from core.views import CommViewSet
+from core.views import CommViewSet, CultivationViewSet, EventViewSet
 
 router = routers.DefaultRouter()
 router.register(r'communication', CommViewSet)
+router.register(r'cultivation', CultivationViewSet)
+router.register(r'event', EventViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
