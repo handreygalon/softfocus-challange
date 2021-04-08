@@ -11,10 +11,10 @@ class CropLossCommSerializer(serializers.ModelSerializer):
 class CultivationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cultivation
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['name']
+        fields = ['id', 'name']
