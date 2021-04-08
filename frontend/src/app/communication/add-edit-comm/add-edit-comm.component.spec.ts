@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewCommunicationComponent } from './new-communication.component';
+import { AddEditCommComponent } from './add-edit-comm.component';
 
-describe('NewCommunicationComponent', () => {
-  let component: NewCommunicationComponent;
-  let fixture: ComponentFixture<NewCommunicationComponent>;
+describe('AddEditCommComponent', () => {
+  let component: AddEditCommComponent;
+  let fixture: ComponentFixture<AddEditCommComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewCommunicationComponent ]
+      declarations: [ AddEditCommComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewCommunicationComponent);
+    fixture = TestBed.createComponent(AddEditCommComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

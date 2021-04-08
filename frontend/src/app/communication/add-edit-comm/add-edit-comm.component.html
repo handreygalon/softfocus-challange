@@ -1,0 +1,53 @@
+<div class="form-group row">
+
+  <label class="col-sm-2 col-form-label">Nome</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="name" placeholder="Insira o nome">
+  </div>
+
+  <label class="col-sm-2 col-form-label">Email</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="email" placeholder="Insira o email">
+  </div>
+
+  <label class="col-sm-2 col-form-label">CPF</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="cpf" placeholder="Insira o CPF">
+  </div>
+
+  <label class="col-sm-2 col-form-label">Data da colheita</label>
+  <div class="col-sm-10">
+    <input type="date" [(ngModel)]="harvestDate">
+  </div>
+
+  <label class="col-sm-2 col-form-label">Latitude</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="latitude" placeholder="Insira a latitude">
+  </div>
+
+  <label class="col-sm-2 col-form-label">Longitude</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="longitude" placeholder="Insira a longitude">
+  </div>
+
+  <label class="col-sm-2 col-form-label">Cultivo</label>
+  <div class="col-sm-10">
+    <select class="form-control" [(ngModel)]="cultivation">
+      <option *ngFor="let cultivation of cultivationList">
+        {{ cultivation.name }}
+      </option>
+    </select>
+  </div>
+
+  <label class="col-sm-2 col-form-label">Evento ocorrido</label>
+  <div class="col-sm-10">
+    <select class="form-control" [(ngModel)]="event">
+      <option *ngFor="let event of eventList">
+        {{ event.name }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<button (click)="addCommunication()" *ngIf="comm.name==''" class="btn btn-primary">Adicionar</button>
+<button (click)="updateCommunication()" *ngIf="comm.name!=''" class="btn btn-primary">Atualizar</button>

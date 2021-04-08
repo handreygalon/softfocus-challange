@@ -49,10 +49,10 @@ export class AppComponent {
   constructor(
     private api:ApiService,
     private router: Router) {
-    this.getCropLossCommunications();
+    //this.getCropLossCommunications();
   }
 
-  getCropLossCommunications = () => {
+  /*getCropLossCommunications = () => {
     this.api.getAllCropLossCommunications().subscribe(
       data => {
         //console.log(data);
@@ -70,5 +70,5 @@ export class AppComponent {
 
   newCropLossCommunication() {
     this.router.navigate(['new-communication'])
-  }
+  }*/
 }

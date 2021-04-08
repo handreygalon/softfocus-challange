@@ -1,0 +1,9 @@
+<div class="form-group row">
+  <label class="col-sm-2 col-form-label">Nome</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="name" placeholder="Insira o nome">
+  </div>
+</div>
+
+<button (click)="addCultivation()" *ngIf="cultiv.name==''" class="btn btn-primary">Adicionar</button>
+<button (click)="updateCultivation()" *ngIf="cultiv.name!=''" class="btn btn-primary">Atualizar</button>

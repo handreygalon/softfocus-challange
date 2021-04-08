@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CommunicationDetailComponent } from './communication-detail/communication-detail.component';
-import { NewCommunicationComponent } from './new-communication/new-communication.component';
+import { CommunicationComponent } from './communication/communication.component';
+import { CultivationComponent } from './cultivation/cultivation.component';
+import { EventComponent } from './event/event.component';
 
 const routes: Routes = [
-  { path: 'communication-detail/:id', component: CommunicationDetailComponent },
-  { path: 'new-communication', component: NewCommunicationComponent }
+  { path: 'communication', component: CommunicationComponent },
+  { path: 'cultivation', component: CultivationComponent },
+  { path: 'event', component: EventComponent }
 ];
 
 @NgModule({
@@ -13,4 +15,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [CommunicationDetailComponent, NewCommunicationComponent]
+//export const routingComponents = [CommunicationDetailComponent, NewCommunicationComponent]

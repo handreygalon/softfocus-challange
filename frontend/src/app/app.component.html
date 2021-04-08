@@ -1,24 +1,24 @@
-<button (click)="newCropLossCommunication()" class="button primary">New Crop Loss Communication</button>
+<div class="container">
 
-<!--<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email"> <br>-->
+  <h3 class="d-flex justify-content-center">Proagro</h3>
+  <h5 class="d-flex justify-content-center">Programa de Garantia da Atividade Agropecuária</h5>
 
-<h3>Comunicações</h3>
+  <nav class="navbar navbar-expand-sm bg-light navbar-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <button routerLink="communication" class="m-1 btn btn-light btn-outline-primary" Button>Comunicações</button>
+      </li>
 
-<table class="alt">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>CPF</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let comm of comms" (click)="commClicked(comm)">
-      <td>{{ comm.id }}</td>
-      <td>{{ comm.name }}</td>
-      <td>{{ comm.cpf }}</td>
-    </tr>
-  </tbody>
-</table>
+      <li class="nav-item">
+        <button routerLink="cultivation" class="m-1 btn btn-light btn-outline-primary" Button>Cultivos</button>
+      </li>
 
-<router-outlet></router-outlet>
+      <li class="nav-item">
+        <button routerLink="event" class="m-1 btn btn-light btn-outline-primary" Button>Eventos</button>
+      </li>
+    </ul>
+  </nav>
+
+  <router-outlet></router-outlet>
+
+</div>
