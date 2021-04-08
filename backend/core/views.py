@@ -36,7 +36,7 @@ class CommViewSet(viewsets.ModelViewSet):
             validPositionList.append(utils.haversine(longitudeList[i], latitudeList[i], requestLon, requestLat))
 
         if any(x == True for x in validPositionList) and validDate:
-            return Response({"error": "There is another occurrence recorded nearby in the same period."})
+            return Response(status=status.HTTP_417_EXPECTATION_FAILED)
 
         cultivation = Cultivation.objects.get(id=comm_data["cultivation"])
         event = Event.objects.get(id=comm_data["event"])

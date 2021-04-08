@@ -38,7 +38,6 @@ export class ShowEventComponent implements OnInit {
   deleteClick(item) {
     if(confirm("Tem certeza que deseja excluir o item?")) {
       this.service.deleteEvent(item.id).subscribe(data => {
-        alert(data.toString());
         this.refreshEventList();
       });
     };
@@ -51,7 +50,6 @@ export class ShowEventComponent implements OnInit {
 
   refreshEventList() {
     this.service.getEventList().subscribe(data => {
-      console.log(data);
       this.eventList = data;
     });
   }

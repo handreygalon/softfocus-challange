@@ -36,10 +36,8 @@ export class ShowCultivationComponent implements OnInit {
   }
 
   deleteClick(item) {
-    console.log(item);
     if(confirm("Tem certeza que deseja excluir o item?")) {
       this.service.deleteCultivation(item.id).subscribe(data => {
-        alert(data.toString());
         this.refreshCultivationList();
       });
     };
@@ -52,7 +50,6 @@ export class ShowCultivationComponent implements OnInit {
 
   refreshCultivationList() {
     this.service.getCultivationList().subscribe(data => {
-      console.log(data);
       this.cultivationList = data;
     });
   }

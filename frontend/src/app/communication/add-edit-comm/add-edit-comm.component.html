@@ -1,47 +1,65 @@
 <div class="form-group row">
 
-  <label class="col-sm-2 col-form-label">Nome</label>
+  <label class="col-sm-2 col-form-label mb-2">Nome</label>
   <div class="col-sm-10">
     <input type="text" class="form-control" [(ngModel)]="name" placeholder="Insira o nome">
   </div>
 
-  <label class="col-sm-2 col-form-label">Email</label>
+  <label class="col-sm-2 col-form-label mb-2">Email</label>
   <div class="col-sm-10">
     <input type="text" class="form-control" [(ngModel)]="email" placeholder="Insira o email">
   </div>
+  <!--<label class="col-sm-2 col-form-label" for="InputEmail">Email</label>
+  <div class="col-sm-10 m-2">
+    <input type="email" class="form-control" id="InputEmail" [(ngModel)]="email" placeholder="Insira o email">
+    <small class="form-text">We'll never share your info.</small>
+  </div>-->
+  <!--<div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>-->
 
-  <label class="col-sm-2 col-form-label">CPF</label>
+  <label class="col-sm-2 col-form-label mb-2">CPF</label>
   <div class="col-sm-10">
     <input type="text" class="form-control" [(ngModel)]="cpf" placeholder="Insira o CPF">
   </div>
 
-  <label class="col-sm-2 col-form-label">Data da colheita</label>
+  <label class="col-sm-2 col-form-label mb-2">Data da colheita</label>
   <div class="col-sm-10">
     <input type="date" [(ngModel)]="harvestDate">
   </div>
 
-  <label class="col-sm-2 col-form-label">Latitude</label>
+  <label class="col-sm-2 col-form-label mb-2">Latitude</label>
   <div class="col-sm-10">
     <input type="text" class="form-control" [(ngModel)]="latitude" placeholder="Insira a latitude">
   </div>
 
-  <label class="col-sm-2 col-form-label">Longitude</label>
+  <label class="col-sm-2 col-form-label mb-2">Longitude</label>
   <div class="col-sm-10">
     <input type="text" class="form-control" [(ngModel)]="longitude" placeholder="Insira a longitude">
   </div>
 
-  <label class="col-sm-2 col-form-label">Cultivo</label>
+  <label class="col-sm-2 col-form-label mb-2">Cultivo</label>
   <div class="col-sm-10">
     <select class="form-control" [(ngModel)]="cultivation">
+      <!--<option> -- Selecione -- </option>-->
+
+      <option>{{ commCultivationSelectedName }}</option>
       <option *ngFor="let cultivation of cultivationList">
         {{ cultivation.name }}
       </option>
     </select>
   </div>
 
-  <label class="col-sm-2 col-form-label">Evento ocorrido</label>
+  <label class="col-sm-2 col-form-label mb-2">Evento ocorrido</label>
   <div class="col-sm-10">
     <select class="form-control" [(ngModel)]="event">
+      <!--<option *ngIf="comm.id==0 ; then thenContent ; else elseContent"></option>
+      <ng-template #thenContent>-- Selecione --</ng-template>
+      <ng-template #elseContent>{{ commEventSelectedID }}</ng-template>-->
+
+      <option>{{ commEventSelectedName }}</option>
       <option *ngFor="let event of eventList">
         {{ event.name }}
       </option>
@@ -49,5 +67,5 @@
   </div>
 </div>
 
-<button (click)="addCommunication()" *ngIf="comm.name==''" class="btn btn-primary">Adicionar</button>
-<button (click)="updateCommunication()" *ngIf="comm.name!=''" class="btn btn-primary">Atualizar</button>
+<button (click)="addCommunication()" *ngIf="comm.id==0" class="btn btn-primary">Adicionar</button>
+<button (click)="updateCommunication()" *ngIf="comm.id!=0" class="btn btn-primary">Atualizar</button>

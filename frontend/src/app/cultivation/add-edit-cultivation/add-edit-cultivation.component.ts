@@ -11,11 +11,11 @@ export class AddEditCultivationComponent implements OnInit {
   constructor(private service: SharedService) { }
 
   @Input() cultiv:any;
-  //@Input() cultiv: {id: 0, name: ''}
   id:number;
   name:string;
 
   ngOnInit(): void {
+    this.id = this.cultiv.id;
     this.name = this.cultiv.name;
   }
 
@@ -23,7 +23,9 @@ export class AddEditCultivationComponent implements OnInit {
     var item = {
       name: this.name
     };
-    this.service.addCultivation(item).subscribe();
+    this.service.addCultivation(item).subscribe(res => {
+      alert("Cultivo adicionado com sucesso!")
+    });
   }
 
   updateCultivation() {
@@ -32,7 +34,7 @@ export class AddEditCultivationComponent implements OnInit {
       name: this.name
     };
     this.service.updateCultivation(item).subscribe(res => {
-      alert(res.toString());
+      alert("Cultivo atualizado com sucesso!")
     });
   }
 

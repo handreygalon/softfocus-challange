@@ -11,9 +11,11 @@ export class AddEditEventComponent implements OnInit {
   constructor(private service: SharedService) { }
 
   @Input() ev:any;
+  id:number;
   name:string;
 
   ngOnInit(): void {
+    this.id = this.ev.id;
     this.name = this.ev.name;
   }
 
@@ -22,16 +24,17 @@ export class AddEditEventComponent implements OnInit {
       name: this.name
     };
     this.service.addEvent(item).subscribe(res => {
-      alert(res.toString());
+      alert("Evento adicionado com sucesso!");
     });
   }
 
   updateEvent() {
     var item = {
+      id: this.id,
       name: this.name
     };
     this.service.updateEvent(item).subscribe(res => {
-      alert(res.toString());
+      alert("Evento atualizado com sucesso!");
     });
   }
 
