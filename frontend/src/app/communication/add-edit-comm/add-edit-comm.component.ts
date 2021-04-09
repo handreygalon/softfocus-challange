@@ -31,7 +31,6 @@ export class AddEditCommComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCommunicationList();
-    //console.log(this.comm);
   }
 
   loadCommunicationList() {
@@ -99,13 +98,24 @@ export class AddEditCommComponent implements OnInit {
       cultivation: this.commCultivationSelectedID,
       event: this.commEventSelectedID
     };
-    this.service.addCommunication(item).subscribe(res => {
-      alert("Comunicação de perda criada com sucesso!");
-    });
+
+    if (this.isValidCPF(this.cpf) && this.validateEmail(this.email)) {
+      this.service.addCommunication(item).subscribe(
+        res => {
+          alert("Comunicação de perda criada com sucesso!");
+        },
+        error => {
+          alert("Já existe um registro para esta data em uma área próxima com outro evento cadastrado!");
+        }
+      );
+    }
+    else {
+      alert("CPF ou email inválidos!");
+    }
   }
 
   updateCommunication() {
-    for (var e of this.eventList) {
+    /*for (var e of this.eventList) {
       if (e.name == this.event) {
         this.commEventSelectedID = e.id;
       }
@@ -115,7 +125,7 @@ export class AddEditCommComponent implements OnInit {
       if (c.name == this.cultivation) {
         this.commCultivationSelectedID = c.id;
       }
-    }
+    }*/
 
     var item = {
       id: this.id,
@@ -125,12 +135,61 @@ export class AddEditCommComponent implements OnInit {
       harvestDate: this.harvestDate,
       latitude: this.latitude,
       longitude: this.longitude,
-      cultivation: this.commCultivationSelectedID,
-      event: this.commEventSelectedID
+      cultivation: this.comm.cultivation.id,
+      event: this.comm.event.id
+      //cultivation: this.commCultivationSelectedID,
+      //event: this.commEventSelectedID
     };
-    this.service.updateCommunication(item).subscribe(res => {
-      alert("Comunicação de perda atualizada com sucesso!");
-    });
+
+    if (this.isValidCPF(this.cpf) && this.validateEmail(this.email)) {
+      this.service.updateCommunication(item).subscribe(
+        res => {
+          alert("Comunicação de perda atualizada com sucesso!");
+        }
+      );
+    }
+    else {
+      alert("CPF ou email inválidos!");
+    }
   }
 
+  validateEmail(email) {
+      var re = /\S+@\S+\.\S+/;
+      return re.test(email);
+  }
+
+  isValidCPF(cpf) {
+    if (typeof cpf !== "string") return false
+    cpf = cpf.replace(/[\s.-]*/igm, '')
+    if (
+        !cpf ||
+        cpf.length != 11 ||
+        cpf == "00000000000" ||
+        cpf == "11111111111" ||
+        cpf == "22222222222" ||
+        cpf == "33333333333" ||
+        cpf == "44444444444" ||
+        cpf == "55555555555" ||
+        cpf == "66666666666" ||
+        cpf == "77777777777" ||
+        cpf == "88888888888" ||
+        cpf == "99999999999"
+    ) {
+        return false
+    }
+    var soma = 0
+    var resto
+    for (var i = 1; i <= 9; i++)
+        soma = soma + parseInt(cpf.substring(i-1, i)) * (11 - i)
+    resto = (soma * 10) % 11
+    if ((resto == 10) || (resto == 11))  resto = 0
+    if (resto != parseInt(cpf.substring(9, 10)) ) return false
+    soma = 0
+    for (var i = 1; i <= 10; i++)
+        soma = soma + parseInt(cpf.substring(i-1, i)) * (12 - i)
+    resto = (soma * 10) % 11
+    if ((resto == 10) || (resto == 11))  resto = 0
+    if (resto != parseInt(cpf.substring(10, 11))) return false
+    return true
+  }
 }

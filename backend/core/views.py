@@ -20,7 +20,6 @@ class CommViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)'''
 
     def create(self, request, *args, **kwargs):
-        print("POST")
         comm_data = request.data
         requestLat = comm_data["latitude"]
         requestLon = comm_data["longitude"]
@@ -28,43 +27,26 @@ class CommViewSet(viewsets.ModelViewSet):
         latitudeList, longitudeList, validPositionList = [], [], []
 
         event = Event.objects.get(id=comm_data["event"])
+        cultivation = Cultivation.objects.get(id=comm_data["cultivation"])
 
-        # print(event)
+        filterDateEvent = CropLossComm.objects.filter(harvestDate=requestHarvestDate).filter(~Q(event=event))
 
-        mesmaData = CropLossComm.objects.filter(harvestDate=requestHarvestDate)
-        mesmaData = mesmaData.filter(~Q(event=event))
-
-        print(mesmaData)
-
-        if mesmaData.exists():
-            validDate = True
+        if filterDateEvent.exists():
+            validDateEvent = True
         else:
-            validDate = False
-        # print(validDate)
+            validDateEvent = False
 
-        '''for item in self.queryset:
-            print(item.event)
-            validPositionList.append(utils.haversine(item.latitude, item.longitude, requestLon, requestLat))'''
-        '''if item.event.id == comm_data["event"]:
-            validEvent = True
-        else:
-            validEvent = False'''
-
-        for i in range(len(mesmaData)):
-
-            # print(mesmaData[i].event)
-
-            latitudeList.append(mesmaData[i].latitude)            
-            longitudeList.append(mesmaData[i].longitude)
-            validPositionList.append(utils.haversine(longitudeList[i], latitudeList[i], requestLon, requestLat))
+        for item in self.queryset:
+            validPositionList.append(utils.haversine(item.longitude, item.latitude, requestLon, requestLat))
+        
+        '''for i in range(len(filterDateEvent)):
+            latitudeList.append(filterDateEvent[i].latitude)            
+            longitudeList.append(filterDateEvent[i].longitude)
+            validPositionList.append(utils.haversine(longitudeList[i], latitudeList[i], requestLon, requestLat))'''
             
-        # print(validPositionList)
-
-        if any(x == True for x in validPositionList) and validDate:
+        if any(x == True for x in validPositionList) and validDateEvent:
             return Response(status=status.HTTP_417_EXPECTATION_FAILED)
 
-        cultivation = Cultivation.objects.get(id=comm_data["cultivation"])
-        
         new_comm = CropLossComm.objects.create(name=comm_data["name"],
                                                email=comm_data["email"],
                                                cpf=comm_data["cpf"],
@@ -78,9 +60,7 @@ class CommViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
     
     def update(self, request, *args, **kwargs):
-        print("PUT")
         comm_data = request.data
-        print(kwargs['pk'])
         comm = CropLossComm.objects.get(id=kwargs['pk'])
 
         cultivation = Cultivation.objects.get(id=comm_data["cultivation"])
