@@ -11,13 +11,6 @@ export class ShowCommComponent implements OnInit {
   constructor(private service: SharedService) { }
 
   communicationList:any = [];
-  cultivationList:any = [];
-  eventList:any = [];
-
-  commEventSelectedID:number;
-  commEventSelectedName:string;
-  commCultivationSelectedID:number;
-  commCultivationSelectedName:string;
 
   ModalTitle:string;
   ActivateAddEditCommComp:boolean = false;
@@ -27,21 +20,7 @@ export class ShowCommComponent implements OnInit {
   commListWithoutFilter:any = [];
 
   ngOnInit(): void {
-    //this.loadCultivationList();
-    //this.loadEventList();
     this.refreshCommList();
-  }
-
-  loadCultivationList() {
-    this.service.getAllCultivation().subscribe((data:any) => {
-      this.cultivationList = data;
-    });
-  }
-
-  loadEventList() {
-    this.service.getAllEvent().subscribe((data:any) => {
-      this.eventList = data;
-    });
   }
 
   addClick() {
@@ -81,23 +60,6 @@ export class ShowCommComponent implements OnInit {
 
   refreshCommList() {
     this.service.getCommunicationList().subscribe(data => {
-      //console.log(data);
-      /*for (var d of data) {
-        for (var e of this.eventList) {
-          if (d.event == e.id) {
-            d.event = e.name;
-          }
-        }
-      }
-
-      for (var d of data) {
-        for (var c of this.cultivationList) {
-          if (d.cultivation == c.id) {
-            d.cultivation = c.name;
-          }
-        }
-      }*/
-
       this.communicationList = data;
       this.commListWithoutFilter = data;
     });

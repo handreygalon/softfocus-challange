@@ -48,8 +48,8 @@ data-bs-target="#exampleModal" (click)="addClick()" data-backdrop="static" data-
       <td>{{ communication.harvestDate }}</td>
       <td>{{ communication.latitude }}</td>
       <td>{{ communication.longitude }}</td>
-      <td>{{ communication.cultivation }}</td>
-      <td>{{ communication.event }}</td>
+      <td>{{ communication.cultivation.name }}</td>
+      <td>{{ communication.event.name }}</td>
       <td>
         <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editClick(communication)" data-backdrop="static" data-keyboard="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
