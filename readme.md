@@ -1,4 +1,4 @@
-# You MUST use branch called 'delelopment'
+# You MUST use branch called 'development'
 
 # Install PostgresSQL
 
