@@ -1,13 +1,11 @@
-# You MUST use branch called 'development'
-
 # Install PostgresSQL
 
-**On Windows using chocolatey**
+## On Windows using chocolatey
 ```bash
 cinst postgresql12 --params '/Password:postgres' -y
 ```
 
-## Active Postgres
+**Active Postgres**
 **Open the command prompt with administrator privilege and navigate to the installation folder**
 ```bash
 cd "C:\Program Files\PostgreSQL\12\bin\"
@@ -22,6 +20,16 @@ cd "C:\Program Files\PostgreSQL\12\bin\"
 ```bash
 .\pg_ctl.exe -D "C:\Program Files\PostgreSQL\12\data" stop
 ```
+
+## Linux
+
+[Documentação Oficial de Instalação do Postgres](https://www.postgresql.org/download/linux/)
+
+## Postbird
+
+É um aplicativo multi plataforma que vai te permitir usar o PostgresSQL com uma interface gráfica, para fazer as operações no banco de dados.
+
+Para instalar, vá até o site: https://electronjs.org/apps/postbird e baixe o app.
 
 # Python Project
 
